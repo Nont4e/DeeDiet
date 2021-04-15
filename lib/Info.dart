@@ -1,11 +1,14 @@
 import 'dart:core';
 
+import 'dart:math';
+
 class Info {
 
   String gender;
   double weight;
   double height;
   int age;
+  double BMI;
   double BMR;
 
   Info(this.gender);
@@ -23,5 +26,9 @@ class Info {
     else if(gender == "Male") {
       BMR = 66 + (13.7 * weight) + (5 * height) + (6.8 * age) * 1.2;
     }
+  }
+
+  double BMICalculation(){
+    BMI = weight / pow((height / 100), 2);
   }
 }

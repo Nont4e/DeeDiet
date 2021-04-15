@@ -228,6 +228,7 @@ class formPage extends StatelessWidget {
                   onPressed: () {
                     info.AddInfo(WeightTextCon.text, HeightTextCon.text,
                         AgeTextCon.text);
+                    info.BMICalculation();
                     info.BMRCalculation();
                     Navigator.push(
                         context,
@@ -237,7 +238,7 @@ class formPage extends StatelessWidget {
                                 )));
                   },
                   color: Colors.amber,
-                  child: Text('Calculate BMR'),
+                  child: Text('Calculate BMI'),
                 ),
               ),
             ),
@@ -277,7 +278,7 @@ class ResultPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                        height: 220,
+                        height: 250,
                         width: double.infinity,
                         decoration: BoxDecoration(
                             border: Border.all(
@@ -298,7 +299,7 @@ class ResultPage extends StatelessWidget {
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                  "Age: ${info.age}\nGender: ${info.gender}\nWeight: ${info.weight} Kg\nHeight: ${info.height} cm"),
+                                  "Age: ${info.age}\nGender: ${info.gender}\nWeight: ${info.weight} Kg\nHeight: ${info.height} cm\nBMI: ${info.BMI}"),
                               Text(
                                 "BMR: ${info.BMR} Kcal",
                                 style: TextStyle(
