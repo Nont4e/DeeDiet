@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "571250356733",
+    "project_id": "wirelessprogramming-80c05",
+    "storage_bucket": "wirelessprogramming-80c05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571250356733:android:bf705c5c8a925675622994",
+        "android_client_info": {
+          "package_name": "com.example.project1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "571250356733-ti5h673h8ql1ev32gqhj1ntg6ns9v6h5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAEyg0QHK9VD3C53y--nOxTFSNE-hkPHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "571250356733-ti5h673h8ql1ev32gqhj1ntg6ns9v6h5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
