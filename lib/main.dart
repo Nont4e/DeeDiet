@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:project1/meal_helper.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'Info.dart';
+import 'Meal.dart';
+import 'Plan.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -115,12 +118,15 @@ class FirstPage extends StatelessWidget {
 class formPage extends StatelessWidget {
   //Input
   final Info info;
+  MealHelper mealHelper = MealHelper.instance;
   formPage({Key key, @required this.info}) : super(key: key);
 
   //Class Variable
   final WeightTextCon = TextEditingController();
   final HeightTextCon = TextEditingController();
   final AgeTextCon = TextEditingController();
+
+  List<Plan> recommend = [];
 
   @override
   void dispose() {
@@ -225,17 +231,21 @@ class formPage extends StatelessWidget {
                 width: 150,
                 height: 80,
                 child: FlatButton(
-                  onPressed: () {
-                    info.AddInfo(WeightTextCon.text, HeightTextCon.text,
+                  onPressed: () async {
+                    info.addInfo(WeightTextCon.text, HeightTextCon.text,
                         AgeTextCon.text);
                     info.BMICalculation();
                     info.BMRCalculation();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ResultPage(
-                                  info: this.info,
-                                )));
+                    this.recommend = await mealHelper.getRecommend(info.BMR);
+                    Future.delayed(Duration(milliseconds: 500), () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResultPage(
+                                    info: this.info,
+                                    recommendPlan: this.recommend,
+                                  )));
+                    });
                   },
                   color: Colors.amber,
                   child: Text('Calculate BMI'),
@@ -251,8 +261,9 @@ class formPage extends StatelessWidget {
 
 class ResultPage extends StatelessWidget {
   final Info info;
-
-  ResultPage({Key key, @required this.info}) : super(key: key);
+  List<Plan> recommendPlan;
+  ResultPage({Key key, @required this.info, @required this.recommendPlan})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -271,7 +282,7 @@ class ResultPage extends StatelessWidget {
               height: 2.0,
             ),
             textAlign: TextAlign.left,
-            child: SingleChildScrollView(
+            child: Container(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Column(
@@ -319,64 +330,120 @@ class ResultPage extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
                     ),
-                    ListView(
-                      padding: EdgeInsets.all(5),
-                      shrinkWrap: true,
-                      children: <Widget>[
-                        Card(
+                    ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: recommendPlan.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(top: 20),
                             child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: AssetImage('assets/images/food2.jpg',),
-                            radius: 25.0,
-                          ),
-                          title: Text(
-                            "Meal Hero",
-                            style: TextStyle(height: 2),
-
-                          ),
-                          tileColor: Color(0xffffc107),
-                          subtitle: Text(
-                            "Meal for hero\nTotal calories: 1500 Kcal",
-                            style: TextStyle(height: 1.4),
-                          ),
-                        )),
-                        Card(
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: AssetImage('assets/images/food1.png',),
-                                radius: 25.0,
+                              tileColor: Color(0xffffc107),
+                              title: Text(
+                                recommendPlan[index].planName,
+                                style: TextStyle(fontSize: 18),
                               ),
-                          title: Text(
-                            "Super Meal",
-                            style: TextStyle(height: 2),
-                          ),
-                          tileColor: Color(0xffffc107),
-                          subtitle: Text(
-                            "Meal for masculine\nTotal calories: 1300 Kcal",
-                            style: TextStyle(height: 1.4),
-                          ),
-                        )),
-                        Card(
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: AssetImage('assets/images/salad.png',),
-                                radius: 25.0,
-                              ),
-                          title: Text(
-                            "Healthy meal",
-                            style: TextStyle(height: 2),
-                          ),
-                          tileColor: Color(0xffffc107),
-                          subtitle: Text(
-                            "Meal for healthy guy\nTotal calories: 1200 Kcal",
-                            style: TextStyle(height: 1.4),
-                          ),
-                        )),
-                      ],
-                    )
+                              subtitle: Text("Average Daily Calories: " +
+                                  recommendPlan[index].dailyCal.toString() +
+                                  " Kcal"),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MealPage(
+                                            selectedPlan:
+                                                recommendPlan[index])));
+                              },
+                            ),
+                          );
+                        }),
                   ],
                 ),
               ),
             )));
+  }
+}
+
+class MealPage extends StatelessWidget {
+  final Plan selectedPlan;
+  List<Meal> mealList;
+
+  MealPage({Key key, @required this.selectedPlan, this.mealList})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    mealList = selectedPlan.mealList;
+    return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('DEEDIET'),
+          elevation: 0,
+          backgroundColor: Color(0xffffc107),
+        ),
+        backgroundColor: Colors.black,
+        body: new DefaultTextStyle(
+          style: TextStyle(
+            fontSize: 16,
+            height: 2.0,
+          ),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(30.0),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    selectedPlan.planName,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 7,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage:
+                                  AssetImage(mealList[(index * 3)].imgURL),
+                              radius: 50.0,
+                            ),
+                            title: Text(mealList[(index * 3)].name),
+                            subtitle:
+                                Text(mealList[(index * 3)].calorie.toString()),
+                            tileColor: Color(0xffffc107),
+                          ),
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage:
+                                  AssetImage(mealList[(index * 3) + 1].imgURL),
+                              radius: 50.0,
+                            ),
+                            title: Text(mealList[(index * 3) + 1].name),
+                            subtitle: Text(
+                                mealList[(index * 3) + 1].calorie.toString()),
+                            tileColor: Color(0xffffc107),
+                          ),
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage:
+                                  AssetImage(mealList[(index * 3) + 2].imgURL),
+                              radius: 50.0,
+                            ),
+                            title: Text(mealList[(index * 3) + 2].name),
+                            subtitle: Text(
+                                mealList[(index * 3) + 2].calorie.toString()),
+                            tileColor: Color(0xffffc107),
+                          ),
+                        ],
+                      );
+                    },
+                  )
+                ],
+              ),
+            ),
+          ),
+        ));
+    throw UnimplementedError();
   }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">571250356733-ti5h673h8ql1ev32gqhj1ntg6ns9v6h5.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">571250356733</string>
+    <string name="google_api_key" translatable="false">AIzaSyAAEyg0QHK9VD3C53y--nOxTFSNE-hkPHo</string>
+    <string name="google_app_id" translatable="false">1:571250356733:android:bf705c5c8a925675622994</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAAEyg0QHK9VD3C53y--nOxTFSNE-hkPHo</string>
+    <string name="google_storage_bucket" translatable="false">wirelessprogramming-80c05.appspot.com</string>
+    <string name="project_id" translatable="false">wirelessprogramming-80c05</string>
+</resources>

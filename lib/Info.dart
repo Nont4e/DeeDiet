@@ -13,7 +13,7 @@ class Info {
 
   Info(this.gender);
 
-  void AddInfo(String w, String h, String a){
+  void addInfo(String w, String h, String a){
     this.weight = double.parse(w);
     this.height = double.parse(h);
     this.age = int.parse(a);
