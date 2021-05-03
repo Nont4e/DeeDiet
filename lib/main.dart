@@ -389,7 +389,7 @@ class MealPage extends StatelessWidget {
           ),
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(30.0),
+              padding: EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
                   Text(
@@ -402,38 +402,67 @@ class MealPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage(mealList[(index * 3)].imgURL),
-                              radius: 50.0,
+                          Text('Day ${index + 1}'),
+                          SizedBox(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text('Breakfast'),
                             ),
-                            title: Text(mealList[(index * 3)].name),
-                            subtitle:
-                                Text(mealList[(index * 3)].calorie.toString()),
-                            tileColor: Color(0xffffc107),
                           ),
-                          ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage(mealList[(index * 3) + 1].imgURL),
-                              radius: 50.0,
+                          //Fix the layout
+                          SizedBox(
+                            height: 75,
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage:
+                                    AssetImage(mealList[(index * 3)].imgURL),
+                                radius: 30.0,
+                              ),
+                              title: Text(mealList[(index * 3)].name),
+                              subtitle: Text(
+                                  mealList[(index * 3)].calorie.toString()),
+                              tileColor: Color(0xffffc107),
                             ),
-                            title: Text(mealList[(index * 3) + 1].name),
-                            subtitle: Text(
-                                mealList[(index * 3) + 1].calorie.toString()),
-                            tileColor: Color(0xffffc107),
                           ),
-                          ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage(mealList[(index * 3) + 2].imgURL),
-                              radius: 50.0,
+                          SizedBox(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text('Lunch'),
                             ),
-                            title: Text(mealList[(index * 3) + 2].name),
-                            subtitle: Text(
-                                mealList[(index * 3) + 2].calorie.toString()),
-                            tileColor: Color(0xffffc107),
+                          ),
+                          SizedBox(
+                            height: 75,
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: AssetImage(
+                                    mealList[(index * 3) + 1].imgURL),
+                                radius: 30.0,
+                              ),
+                              title: Text(mealList[(index * 3) + 1].name),
+                              subtitle: Text(
+                                  mealList[(index * 3) + 1].calorie.toString()),
+                              tileColor: Color(0xffffc107),
+                            ),
+                          ),
+                          SizedBox(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text('Dinner'),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 75,
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: AssetImage(
+                                    mealList[(index * 3) + 2].imgURL),
+                                radius: 30.0,
+                              ),
+                              title: Text(mealList[(index * 3) + 2].name),
+                              subtitle: Text(
+                                  mealList[(index * 3) + 2].calorie.toString()),
+                              tileColor: Color(0xffffc107),
+                            ),
                           ),
                         ],
                       );
