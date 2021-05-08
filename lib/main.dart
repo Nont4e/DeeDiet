@@ -419,7 +419,7 @@ class MealPage extends StatelessWidget {
                               ),
                               title: Text(mealList[(index * 3)].name),
                               subtitle: Text(
-                                  mealList[(index * 3)].calorie.toString()),
+                                  mealList[(index * 3)].calorie.toString()+ ' Calories'),
                               tileColor: Color(0xffffc107),
                             ),
                           ),
@@ -439,7 +439,7 @@ class MealPage extends StatelessWidget {
                               ),
                               title: Text(mealList[(index * 3) + 1].name),
                               subtitle: Text(
-                                  mealList[(index * 3) + 1].calorie.toString()),
+                                  mealList[(index * 3) + 1].calorie.toString()+ ' Calories'),
                               tileColor: Color(0xffffc107),
                             ),
                           ),
@@ -459,7 +459,7 @@ class MealPage extends StatelessWidget {
                               ),
                               title: Text(mealList[(index * 3) + 2].name),
                               subtitle: Text(
-                                  mealList[(index * 3) + 2].calorie.toString()),
+                                  mealList[(index * 3) + 2].calorie.toString()+ ' Calories'),
                               tileColor: Color(0xffffc107),
                             ),
                           ),
