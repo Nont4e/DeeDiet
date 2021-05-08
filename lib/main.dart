@@ -409,7 +409,6 @@ class MealPage extends StatelessWidget {
                               child: Text('Breakfast'),
                             ),
                           ),
-                          //Fix the layout
                           SizedBox(
                             height: 75,
                             child: ListTile(
