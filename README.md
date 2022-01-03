@@ -1,6 +1,6 @@
-# project1
+# project: DEEDIET
 
-A new Flutter application.
+A meal planner Flutter application.
 
 ## Getting Started
 
